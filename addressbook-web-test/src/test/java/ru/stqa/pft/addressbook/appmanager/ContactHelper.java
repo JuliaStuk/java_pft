@@ -10,11 +10,11 @@ public class ContactHelper extends HelperBase {
         super(wd);
     }
 
-    public void submitNewContact() {
+    public void submitContact() {
         click(By.name("submit"));
     }
 
-    public void fillNewContact(ContactData contactData) {
+    public void fillContact(ContactData contactData) {
         type(By.name("firstname"), contactData.getFirstname());
         type(By.name("middlename"), contactData.getMiddlename());
         type(By.name("lastname"), contactData.getLastname());
@@ -25,7 +25,23 @@ public class ContactHelper extends HelperBase {
 
     }
 
-    public void addNewContact() {
+    public void addContact() {
         click(By.linkText("add new"));
+    }
+
+    public void selectContact(int n) {
+        click(By.xpath(String.format("(//img[@alt='Edit'])[%s]", n)));
+    }
+
+    public void submitContactModification() {
+        click(By.name("update"));
+    }
+
+    public void getContactByRowNumber(int n) {
+        click(By.xpath(String.format("(//input[@name='selected[]'])[%s]", n)));
+    }
+
+    public void deleteContact() {
+        click(By.xpath("//input[@value='Delete']"));
     }
 }
