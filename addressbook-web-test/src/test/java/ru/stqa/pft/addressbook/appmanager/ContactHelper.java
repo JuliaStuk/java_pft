@@ -51,4 +51,14 @@ public class ContactHelper<creation> extends HelperBase {
     public void deleteContact() {
         click(By.xpath("//input[@value='Delete']"));
     }
+
+    public void createContact(ContactData contact) {
+        addContact();
+        fillContact(contact, true);
+        submitContact();
+    }
+
+    public boolean isThereAContact(int n) {
+        return isElementPresent(By.xpath(String.format("(//img[@alt='Edit'])[%s]", n)));
+    }
 }
