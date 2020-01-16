@@ -7,12 +7,13 @@ public class ContactDeletionTests extends TestBase {
 
     @Test
     public void testContactDeletion() {
+        int n = 1;
         app.getNavigationHelper().returnToHomePage();
-        if (!app.getContactHelper().isThereAContact(1)) {
+        if (!app.getContactHelper().isThereAContact(n)) {
             app.getContactHelper().createContact(new ContactData("FirstTest", "MiddleTest", "LastTest", "NickTest", "CompanyTest", "AddressTest, 12", "HomeTest", "test1"));
         }
         app.getNavigationHelper().returnToHomePage();
-        app.getContactHelper().getContactByRowNumber(1);
+        app.getContactHelper().getContactByRowNumber(n);
         app.getContactHelper().deleteContact();
         app.getContactHelper().acceptAlert();
         app.getNavigationHelper().returnToHomePage();
