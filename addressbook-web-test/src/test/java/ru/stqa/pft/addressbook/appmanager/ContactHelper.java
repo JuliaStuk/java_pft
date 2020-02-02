@@ -2,9 +2,11 @@ package ru.stqa.pft.addressbook.appmanager;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.ui.Select;
-import org.testng.Assert;
+import org.openqa.selenium.WebElement;
 import ru.stqa.pft.addressbook.model.ContactData;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ContactHelper<creation> extends HelperBase {
 
@@ -24,11 +26,11 @@ public class ContactHelper<creation> extends HelperBase {
         type(By.name("company"), contactData.getCompany());
         type(By.name("address"), contactData.getAddress());
         type(By.name("home"), contactData.getHome());
-        if (creation) {
-            new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroup());
-        } else {
-            Assert.assertFalse(isElementPresent(By.name("new_group")));
-        }
+        //     if (creation) {
+        //          new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroup());
+        //     } else {
+        //        Assert.assertFalse(isElementPresent(By.name("new_group")));
+        //     }
     }
 
 
@@ -36,16 +38,17 @@ public class ContactHelper<creation> extends HelperBase {
         click(By.linkText("add new"));
     }
 
-    public void selectContact(int n) {
-        click(By.xpath(String.format("(//img[@alt='Edit'])[%s]", n)));
+    public void selectContact(int index) {
+        wd.findElements(By.xpath(String.format("(//img[@alt='Edit'])"))).get(index).click();
     }
 
     public void submitContactModification() {
         click(By.name("update"));
     }
 
-    public void getContactByRowNumber(int n) {
-        click(By.xpath(String.format("(//input[@name='selected[]'])[%s]", n)));
+    public void getContactByRowNumber(int index) {
+        wd.findElements(By.xpath(String.format("(//input[@name='selected[]'])"))).get(index).click();
+        //   click(By.xpath(String.format("(//input[@name='selected[]'])[%s]", n)));
     }
 
     public void deleteContact() {
@@ -58,7 +61,29 @@ public class ContactHelper<creation> extends HelperBase {
         submitContact();
     }
 
-    public boolean isThereAContact(int n) {
-        return isElementPresent(By.xpath(String.format("(//img[@alt='Edit'])[%s]", n)));
+    public boolean isThereAContact() {
+        return isElementPresent(By.xpath(String.format("(//input[@name='selected[]'])")));
+    }
+
+    //  public boolean isThereAContact(int n) {
+    //      return isElementPresent(By.xpath(String.format("(//img[@alt='Edit'])[%s]", n)));
+    //  }
+
+    public int getContactCount() {
+        return wd.findElements(By.name("selected[]")).size();
+    }
+
+    public List<ContactData> getContactList() {
+        List<ContactData> contacts = new ArrayList<ContactData>();
+        List<WebElement> elements = wd.findElements(By.tagName("tr").name("entry"));
+        for (WebElement element : elements) {
+            List<WebElement> tdList = element.findElements(By.tagName("td"));
+            int id = Integer.parseInt(tdList.get(0).findElement(By.tagName("input")).getAttribute("value"));
+            String firstname = tdList.get(2).getText();
+            String lastname = tdList.get(1).getText();
+            ContactData contact = new ContactData(id, firstname, null, lastname, null, null, null, null, null);
+            contacts.add(contact);
+        }
+        return contacts;
     }
 }
