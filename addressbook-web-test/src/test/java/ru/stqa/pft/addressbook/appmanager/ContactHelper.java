@@ -6,9 +6,7 @@ import org.openqa.selenium.WebElement;
 import ru.stqa.pft.addressbook.model.ContactData;
 import ru.stqa.pft.addressbook.model.Contacts;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 public class ContactHelper<creation> extends HelperBase {
 
@@ -56,12 +54,14 @@ public class ContactHelper<creation> extends HelperBase {
         addContact();
         fillContact(contact, true);
         submitContact();
+        contactCash = null;
     }
 
     public void modify(ContactData contact) {
         selectContactById(contact.getId());
         fillContact(contact, false);
         submitContactModification();
+        contactCash = null;
     }
 
     public void deleteContact() {
@@ -76,6 +76,7 @@ public class ContactHelper<creation> extends HelperBase {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+        contactCash = null;
     }
 
     public boolean isThereAContact() {
@@ -86,16 +87,21 @@ public class ContactHelper<creation> extends HelperBase {
         return wd.findElements(By.name("selected[]")).size();
     }
 
+    private Contacts contactCash = null;
+
     public Contacts all() {
-        Contacts contacts = new Contacts();
+        if (contactCash != null) {
+            return new Contacts(contactCash);
+        }
+        contactCash = new Contacts();
         List<WebElement> elements = wd.findElements(By.tagName("tr").name("entry"));
         for (WebElement element : elements) {
             List<WebElement> tdList = element.findElements(By.tagName("td"));
             int id = Integer.parseInt(tdList.get(0).findElement(By.tagName("input")).getAttribute("value"));
             String firstname = tdList.get(2).getText();
             String lastname = tdList.get(1).getText();
-            contacts.add(new ContactData().withId(id).withFirstname(firstname).withLastname(lastname));
+            contactCash.add(new ContactData().withId(id).withFirstname(firstname).withLastname(lastname));
         }
-        return contacts;
+        return new Contacts(contactCash);
     }
 }
