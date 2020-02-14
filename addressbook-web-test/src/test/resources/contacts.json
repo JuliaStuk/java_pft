@@ -5,7 +5,8 @@
     "lastname": "Lastname 1",
     "nickname": "NickTest 1",
     "company": "CompanyTest 1",
-    "address": "AddressTest 1"
+    "address": "AddressTest 1",
+    "photoPath": "C:/java_practice/java_pft/addressbook-web-test/src/test/resources/cat.png"
   },
   {
     "firstname": "Firstname 2",
@@ -13,38 +14,7 @@
     "lastname": "Lastname 2",
     "nickname": "NickTest 2",
     "company": "CompanyTest 2",
-    "address": "AddressTest 2"
-  },
-  {
-    "firstname": "Firstname 3",
-    "middlename": "Middlename 3",
-    "lastname": "Lastname 3",
-    "nickname": "NickTest 3",
-    "company": "CompanyTest 3",
-    "address": "AddressTest 3"
-  },
-  {
-    "firstname": "Firstname 4",
-    "middlename": "Middlename 4",
-    "lastname": "Lastname 4",
-    "nickname": "NickTest 4",
-    "company": "CompanyTest 4",
-    "address": "AddressTest 4"
-  },
-  {
-    "firstname": "Firstname 5",
-    "middlename": "Middlename 5",
-    "lastname": "Lastname 5",
-    "nickname": "NickTest 5",
-    "company": "CompanyTest 5",
-    "address": "AddressTest 5"
-  },
-  {
-    "firstname": "Firstname 6",
-    "middlename": "Middlename 6",
-    "lastname": "Lastname 6",
-    "nickname": "NickTest 6",
-    "company": "CompanyTest 6",
-    "address": "AddressTest 6"
+    "address": "AddressTest 2",
+    "photoPath": "C:/java_practice/java_pft/addressbook-web-test/src/test/resources/cat.png"
   }
 ]

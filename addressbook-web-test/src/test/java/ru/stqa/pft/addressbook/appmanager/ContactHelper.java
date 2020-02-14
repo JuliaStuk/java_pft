@@ -39,6 +39,7 @@ public class ContactHelper<creation> extends HelperBase {
         //     }
     }
 
+
     public void addContact() {
         click(By.linkText("add new"));
     }
@@ -62,6 +63,7 @@ public class ContactHelper<creation> extends HelperBase {
         submitContact();
         contactCash = null;
     }
+
 
     public void modify(ContactData contact) {
         selectContactById(contact.getId());

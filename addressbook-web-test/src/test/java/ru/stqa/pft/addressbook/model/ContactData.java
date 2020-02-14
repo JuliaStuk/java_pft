@@ -28,6 +28,8 @@ public class ContactData {
     private String workPhone;
     private String allPhones;
     private File photo;
+    @Expose
+    private String photoPath;
     private String email;
     private String email2;
     private String email3;
@@ -120,6 +122,15 @@ public class ContactData {
         return this;
     }
 
+    public ContactData withPhotoPath(String photoPath) {
+        this.photoPath = photoPath;
+        return this;
+    }
+
+    public String getPhotoPath() {
+        return photoPath;
+    }
+
     public int getId() {
         return id;
     }
@@ -165,6 +176,9 @@ public class ContactData {
     }
 
     public File getPhoto() {
+        if (photo == null) {
+            return new File(photoPath);
+        }
         return photo;
     }
 
