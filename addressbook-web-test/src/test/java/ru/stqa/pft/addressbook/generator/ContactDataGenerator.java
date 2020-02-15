@@ -71,7 +71,7 @@ public class ContactDataGenerator {
         for (int i = 1; i <= count; i++) {
             contacts.add(new ContactData().withFirstname(String.format("Firstname %s", i))
                     .withMiddlename(String.format("Middlename %s", i)).withLastname(String.format("Lastname %s", i))
-                    .withNickname(String.format("NickTest %s", i)).withCompany(String.format("CompanyTest %s", i)).withAddress(String.format("AddressTest %s", i)).withPhotoPath(String.format("C:/java_practice/java_pft/addressbook-web-test/src/test/resources/cat.png")));
+                    .withNickname(String.format("NickTest %s", i)).withCompany(String.format("CompanyTest %s", i)).withAddress(String.format("AddressTest %s", i)).withPhotoPath(String.format("src/test/resources/cat.png")));
         }
         return contacts;
     }

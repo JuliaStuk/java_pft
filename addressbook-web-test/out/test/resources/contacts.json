@@ -6,7 +6,7 @@
     "nickname": "NickTest 1",
     "company": "CompanyTest 1",
     "address": "AddressTest 1",
-    "photoPath": "C:/java_practice/java_pft/addressbook-web-test/src/test/resources/cat.png"
+    "photoPath": "src/test/resources/cat.png"
   },
   {
     "firstname": "Firstname 2",
@@ -15,6 +15,6 @@
     "nickname": "NickTest 2",
     "company": "CompanyTest 2",
     "address": "AddressTest 2",
-    "photoPath": "C:/java_practice/java_pft/addressbook-web-test/src/test/resources/cat.png"
+    "photoPath": "src/test/resources/cat.png"
   }
 ]
