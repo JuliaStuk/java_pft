@@ -38,7 +38,6 @@ public class ContactHelper<creation> extends HelperBase {
         //        Assert.assertFalse(isElementPresent(By.name("new_group")));
         //     }
     }
-    //File photo = new File("src/test/resources/cat.png")
 
     public void addContact() {
         click(By.linkText("add new"));
