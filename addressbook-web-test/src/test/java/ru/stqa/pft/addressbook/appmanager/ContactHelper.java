@@ -23,9 +23,9 @@ public class ContactHelper<creation> extends HelperBase {
         type(By.name("middlename"), contactData.getMiddlename());
         type(By.name("lastname"), contactData.getLastname());
         type(By.name("nickname"), contactData.getNickname());
+        attach(By.name("photo"),contactData.getPhoto());
         type(By.name("company"), contactData.getCompany());
         type(By.name("address"), contactData.getAddress());
-        attach(By.name("photo"),contactData.getPhoto());
         type(By.name("home"),contactData.getHomePhone());
         type(By.name("mobile"),contactData.getMobilePhone());
         type(By.name("work"),contactData.getWorkPhone());
@@ -38,7 +38,7 @@ public class ContactHelper<creation> extends HelperBase {
         //        Assert.assertFalse(isElementPresent(By.name("new_group")));
         //     }
     }
-
+    //File photo = new File("src/test/resources/cat.png")
 
     public void addContact() {
         click(By.linkText("add new"));

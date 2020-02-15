@@ -52,18 +52,18 @@ public class ContactDataGenerator {
     private void saveAsJson(List<ContactData> contacts, File file) throws IOException {
         Gson gson = new GsonBuilder().setPrettyPrinting().excludeFieldsWithoutExposeAnnotation().create();
         String json = gson.toJson(contacts);
-        Writer writer = new FileWriter(file);
-        writer.write(json);
-        writer.close();
+        try (Writer writer = new FileWriter(file)){
+            writer.write(json);
+        }
     }
 
     private void saveAsXml(List<ContactData> contacts, File file) throws IOException {
         XStream xstream = new XStream();
         xstream.processAnnotations(ContactData.class);
         String xml = xstream.toXML(contacts);
-        Writer writer = new FileWriter(file);
-        writer.write(xml);
-        writer.close();
+        try (Writer writer = new FileWriter(file)){
+            writer.write(xml);
+        }
     }
 
     private List<ContactData> generateContact(int count) {
@@ -71,7 +71,7 @@ public class ContactDataGenerator {
         for (int i = 1; i <= count; i++) {
             contacts.add(new ContactData().withFirstname(String.format("Firstname %s", i))
                     .withMiddlename(String.format("Middlename %s", i)).withLastname(String.format("Lastname %s", i))
-                    .withNickname(String.format("NickTest %s", i)).withCompany(String.format("CompanyTest %s", i)).withAddress(String.format("AddressTest %s", i)).withPhotoPath(String.format("src/test/resources/cat.png")));
+                    .withNickname(String.format("NickTest %s", i)).withPhotoPath(String.format("src/test/resources/cat.png")).withCompany(String.format("CompanyTest %s", i)).withAddress(String.format("AddressTest %s", i)));
         }
         return contacts;
     }
