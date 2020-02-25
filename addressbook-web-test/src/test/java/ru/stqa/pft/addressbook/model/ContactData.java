@@ -1,5 +1,6 @@
 package ru.stqa.pft.addressbook.model;
 
+import com.google.common.base.Strings;
 import com.google.gson.annotations.Expose;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamOmitField;
@@ -27,20 +28,24 @@ import java.util.Objects;
     @Column(name = "lastname")
     private String lastname;
     @Expose
-    @Transient
+    @Column(name = "nickname")
     private String nickname;
     @Expose
-    @Transient
+    @Column(name = "company")
     private String company;
     @Expose
-    @Transient
+    @Type(type = "text")
+    @Column(name = "address")
     private String address;
+    @Expose
     @Column(name = "home")
     @Type(type = "text")
     private String homePhone;
+    @Expose
     @Column(name = "mobile")
     @Type(type = "text")
     private String mobilePhone;
+    @Expose
     @Column(name = "work")
     @Type(type = "text")
     private String workPhone;
@@ -48,15 +53,17 @@ import java.util.Objects;
     private String allPhones;
     @Transient
     private File photo;
-    @Expose
-    @Column(name = "photo")
+    @Transient
     @Type(type = "text")
     private String photoPath;
-    @Transient
+    @Column(name = "email")
+    @Type(type = "text")
     private String email;
-    @Transient
+    @Column(name = "email2")
+    @Type(type = "text")
     private String email2;
-    @Transient
+    @Column(name = "email3")
+    @Type(type = "text")
     private String email3;
     @Transient
     private String allEmail;
@@ -229,28 +236,47 @@ import java.util.Objects;
         return group;
     }
 
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ContactData that = (ContactData) o;
-        return Objects.equals(id, that.id) &&
+        return id == that.id &&
                 Objects.equals(firstname, that.firstname) &&
-                Objects.equals(lastname, that.lastname);
+                Objects.equals(middlename, that.middlename) &&
+                Objects.equals(lastname, that.lastname) &&
+                Objects.equals(nickname, that.nickname) &&
+                Objects.equals(company, that.company) &&
+                Objects.equals(address, that.address)&&
+                (Strings.isNullOrEmpty(homePhone) && Strings.isNullOrEmpty(that.homePhone) || homePhone.equals(that.homePhone))&&
+                (Strings.isNullOrEmpty(mobilePhone) && Strings.isNullOrEmpty(that.mobilePhone) || mobilePhone.equals(that.mobilePhone))&&
+                (Strings.isNullOrEmpty(workPhone) && Strings.isNullOrEmpty(that.workPhone) || workPhone.equals(that.workPhone))&&
+                (Strings.isNullOrEmpty(email) && Strings.isNullOrEmpty(that.email) || email.equals(that.email))&&
+                (Strings.isNullOrEmpty(email2) && Strings.isNullOrEmpty(that.email2) || email2.equals(that.email2))&&
+                (Strings.isNullOrEmpty(email3) && Strings.isNullOrEmpty(that.email3) || email3.equals(that.email3));
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, firstname, lastname);
+        return Objects.hash(id, firstname, middlename, lastname, nickname, company, address, homePhone, mobilePhone, workPhone, email, email2, email3);
     }
 
     @Override
     public String toString() {
         return "ContactData{" +
-                "id='" + id + '\'' +
+                "id=" + id +
                 ", firstname='" + firstname + '\'' +
+                ", middlename='" + middlename + '\'' +
                 ", lastname='" + lastname + '\'' +
+                ", nickname='" + nickname + '\'' +
+                ", company='" + company + '\'' +
+                ", address='" + address + '\'' +
+                ", homePhone='" + homePhone + '\'' +
+                ", mobilePhone='" + mobilePhone + '\'' +
+                ", workPhone='" + workPhone + '\'' +
+                ", email='" + email + '\'' +
+                ", email2='" + email2 + '\'' +
+                ", email3='" + email3 + '\'' +
                 '}';
     }
 
