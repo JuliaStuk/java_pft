@@ -63,9 +63,7 @@ public class ContactCreationTests extends TestBase {
         int maxId = after.stream().mapToInt((c) -> c.getId()).max().getAsInt();
         assertThat(after, equalTo(
                 before.withAdded(contact.withId(after.stream().mapToInt((c) -> c.getId()).max().getAsInt()))));
-                 //  before.withAdded(
-                 //          contact.withId(maxId).withPhotoPath(null)
-                 //                  .withHomePhone("").withMobilePhone("").withWorkPhone(""))));
+        verifyContactListInUI();
     }
 
     @Test(enabled = false)
