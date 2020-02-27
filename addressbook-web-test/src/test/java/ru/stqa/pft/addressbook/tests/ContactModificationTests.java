@@ -15,7 +15,7 @@ public class ContactModificationTests extends TestBase {
         if (app.db().contacts().size() == 0) {
         app.goTo().homePage();
         app.contact().create(new ContactData().withFirstname("ModCrFirstTest").withMiddlename("MiddleTest").withLastname("LastTest")
-                    .withNickname("NickTest").withCompany("CompanyTest").withAddress("AddressTest, 12").withGroup("test1"));
+                    .withNickname("NickTest").withCompany("CompanyTest").withAddress("AddressTest, 12"));
         }
     }
     @Test

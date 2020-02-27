@@ -8,12 +8,14 @@ import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.io.File;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @XStreamAlias("contact")
 @Entity
 @Table(name = "addressbook")
-    public class ContactData {
+public class ContactData {
     @XStreamOmitField
     @Id
     @Column(name = "id")
@@ -67,8 +69,10 @@ import java.util.Objects;
     private String email3;
     @Transient
     private String allEmail;
-    @Transient
-    private String group;
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "address_in_groups", joinColumns = @JoinColumn(name = "id"), inverseJoinColumns = @JoinColumn(name = "group_id"))
+    private Set<GroupData> groups = new HashSet<GroupData>();
+
 
     public ContactData withId(int id) {
         this.id = id;
@@ -151,11 +155,6 @@ import java.util.Objects;
         return this;
     }
 
-    public ContactData withGroup(String group) {
-        this.group = group;
-        return this;
-    }
-
     public ContactData withPhotoPath(String photoPath) {
         this.photoPath = photoPath;
         return this;
@@ -232,8 +231,8 @@ import java.util.Objects;
         return allEmail;
     }
 
-    public String getGroup() {
-        return group;
+    public Groups getGroups() {
+        return new Groups(groups);
     }
 
     @Override
@@ -247,12 +246,12 @@ import java.util.Objects;
                 Objects.equals(lastname, that.lastname) &&
                 Objects.equals(nickname, that.nickname) &&
                 Objects.equals(company, that.company) &&
-                Objects.equals(address, that.address)&&
-                (Strings.isNullOrEmpty(homePhone) && Strings.isNullOrEmpty(that.homePhone) || homePhone.equals(that.homePhone))&&
-                (Strings.isNullOrEmpty(mobilePhone) && Strings.isNullOrEmpty(that.mobilePhone) || mobilePhone.equals(that.mobilePhone))&&
-                (Strings.isNullOrEmpty(workPhone) && Strings.isNullOrEmpty(that.workPhone) || workPhone.equals(that.workPhone))&&
-                (Strings.isNullOrEmpty(email) && Strings.isNullOrEmpty(that.email) || email.equals(that.email))&&
-                (Strings.isNullOrEmpty(email2) && Strings.isNullOrEmpty(that.email2) || email2.equals(that.email2))&&
+                Objects.equals(address, that.address) &&
+                (Strings.isNullOrEmpty(homePhone) && Strings.isNullOrEmpty(that.homePhone) || homePhone.equals(that.homePhone)) &&
+                (Strings.isNullOrEmpty(mobilePhone) && Strings.isNullOrEmpty(that.mobilePhone) || mobilePhone.equals(that.mobilePhone)) &&
+                (Strings.isNullOrEmpty(workPhone) && Strings.isNullOrEmpty(that.workPhone) || workPhone.equals(that.workPhone)) &&
+                (Strings.isNullOrEmpty(email) && Strings.isNullOrEmpty(that.email) || email.equals(that.email)) &&
+                (Strings.isNullOrEmpty(email2) && Strings.isNullOrEmpty(that.email2) || email2.equals(that.email2)) &&
                 (Strings.isNullOrEmpty(email3) && Strings.isNullOrEmpty(that.email3) || email3.equals(that.email3));
     }
 
