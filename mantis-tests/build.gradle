@@ -6,6 +6,9 @@ repositories {
 dependencies {
     implementation 'org.testng:testng:7.1.0'
     compile group: 'org.seleniumhq.selenium', name: 'selenium-java', version: '4.0.0-alpha-4'
+    implementation 'org.hamcrest:hamcrest:2.2'
+    compile group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5.11'
+    compile group: 'commons-net', name: 'commons-net', version: '3.6'
 
 }
 
