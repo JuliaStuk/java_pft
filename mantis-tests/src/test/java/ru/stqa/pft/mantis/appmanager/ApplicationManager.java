@@ -21,6 +21,8 @@ public class ApplicationManager {
     private FtpHelper ftp;
     private MailHelper mailHelper;
     private JamesHelper jamesHelper;
+    private AdminNavigationHelper adminNavigationHelper;
+    private DbHelper dbHelper;
 
     public ApplicationManager(String browser) {
         this.browser = browser;
@@ -31,6 +33,7 @@ public class ApplicationManager {
         String target = System.getProperty("target", "local");
         properties.load(new FileReader(new File(String.format("src/test/resources/%s.properties", target))));
 
+        dbHelper = new DbHelper();
     }
 
     public void stop() {
@@ -48,7 +51,7 @@ public class ApplicationManager {
     }
 
     public RegistrationHelper registration() {
-        if (registrationHelper == null){
+        if (registrationHelper == null) {
             registrationHelper = new RegistrationHelper(this);
         }
         return registrationHelper;
@@ -78,17 +81,29 @@ public class ApplicationManager {
         return wd;
     }
 
-    public MailHelper mail(){
+    public MailHelper mail() {
         if (mailHelper == null) {
             mailHelper = new MailHelper(this);
         }
-            return mailHelper;
-        }
+        return mailHelper;
+    }
 
-        public JamesHelper james() {
-            if (jamesHelper == null) {
-                jamesHelper = new JamesHelper(this);
-            }
-            return jamesHelper;
+    public JamesHelper james() {
+        if (jamesHelper == null) {
+            jamesHelper = new JamesHelper(this);
         }
+        return jamesHelper;
+    }
+
+    public AdminNavigationHelper adminNavigation() {
+        if (adminNavigationHelper == null) {
+            adminNavigationHelper = new AdminNavigationHelper(this);
+        }
+        return adminNavigationHelper;
+    }
+
+    public DbHelper db() {
+        return dbHelper;
+    }
+
 }

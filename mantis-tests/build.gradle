@@ -12,6 +12,8 @@ dependencies {
     testCompile group: 'org.subethamail', name: 'subethasmtp', version: '3.1.7'
     compile group: 'ru.lanwen.verbalregex', name: 'java-verbal-expressions', version: '1.6'
     testCompile group: 'ch.qos.logback', name: 'logback-classic', version: '1.2.3'
+    compile group: 'mysql', name: 'mysql-connector-java', version: '8.0.19'
+    compile group: 'org.hibernate', name: 'hibernate-core', version: '5.4.12.Final'
 }
 
 test {
