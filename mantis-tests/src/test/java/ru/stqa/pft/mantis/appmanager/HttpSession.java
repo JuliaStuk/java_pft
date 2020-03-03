@@ -51,7 +51,7 @@ public class HttpSession {
         HttpGet get = new HttpGet(app.getProperty("web.baseURL") + "/account_page.php");
         CloseableHttpResponse response = httpClient.execute(get);
         String body = getTextFrom(response);
-        return body.contains(String.format("<span class=\"label hidden-xs label-default arrowed\">%s</span>", username));
+        return body.contains(String.format("<i class=\"ace-icon fa fa-user fa-2x white\"></i> <span class=\"user-info\">%s</span>", username));
     }
 
 }
