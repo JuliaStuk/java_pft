@@ -10,7 +10,6 @@ import org.testng.SkipException;
 
 import java.io.IOException;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 public class TestBase {
 
@@ -27,13 +26,14 @@ public class TestBase {
     }
 
     private static boolean isIssueOpen(int issueId) throws IOException {
-        Set<Issue> issues = getIssues();
-        Set<Issue> filteredIssues = issues.stream()
-                .filter(u -> u.getId() == issueId)
-                .collect(Collectors.toSet());
-        Issue filteredIssue = filteredIssues.iterator().next();
-        String issueStateName = filteredIssue.getStateName();
-        return !issueStateName.equals("Resolved");
+        String json = getExecutor().execute(Request.Get(String.format("https://bugify.stqa.ru/api/issues/%s.json", issueId))).returnContent().asString();
+        JsonElement parsed = new JsonParser().parse(json);
+        JsonElement jsonIssues = parsed.getAsJsonObject().get("issues");
+        Set<Issue> issues = new Gson().fromJson(jsonIssues, new TypeToken<Set<Issue>>() {
+        }.getType());
+        Issue issue = issues.iterator().next();
+        String stateName = issue.getStateName();
+        return !stateName.equals("Resolved");
 
     }
 
