@@ -53,7 +53,7 @@ public class ContactCreationTests extends TestBase {
         }
     }
 
-    @Test (dataProvider = "validContactsFromJson")
+    @Test (enabled = false, dataProvider = "validContactsFromJson")
     public void testContactCreation(ContactData contact) throws Exception {
         Groups groups = app.db().groups();
         app.goTo().homePage();
@@ -66,6 +66,21 @@ public class ContactCreationTests extends TestBase {
         assertThat(after, equalTo(
                 before.withAdded(contact.withId(after.stream().mapToInt((c) -> c.getId()).max().getAsInt()))));
         verifyContactListInUI();
+    }
+
+    @Test
+    public void testContactCreation() throws Exception {
+        Groups groups = app.db().groups();
+        app.goTo().homePage();
+        Contacts before = app.db().contacts();
+        ContactData contact = new ContactData().withFirstname("FirstTest").withMiddlename("MiddleTest").withLastname("1New-LastTest")
+                .withNickname("NickTest").withCompany("CompanyTest").withAddress("AddressTest, 12").inGroup(groups.iterator().next());
+        app.contact().create(contact);
+        app.goTo().homePage();
+        assertThat(app.contact().count(), equalTo(before.size() + 1));
+        Contacts after = app.db().contacts();
+        assertThat(after, equalTo(
+                before.withAdded(contact.withId(after.stream().mapToInt((c) -> c.getId()).max().getAsInt()))));
     }
 
     @Test(enabled = false)

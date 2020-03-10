@@ -160,6 +160,16 @@ public class ContactData {
         return this;
     }
 
+    public ContactData inGroup(GroupData group) {
+        groups.add(group);
+        return this;
+    }
+
+    public ContactData removeGroup(GroupData group) {
+        groups.remove(group);
+        return this;
+    }
+
     public String getPhotoPath() {
         return photoPath;
     }
@@ -208,6 +218,31 @@ public class ContactData {
         return allPhones;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ContactData that = (ContactData) o;
+        return id == that.id &&
+                Objects.equals(firstname, that.firstname) &&
+                Objects.equals(middlename, that.middlename) &&
+                Objects.equals(lastname, that.lastname) &&
+                Objects.equals(nickname, that.nickname) &&
+                Objects.equals(company, that.company) &&
+                Objects.equals(address, that.address) &&
+                (Strings.isNullOrEmpty(homePhone) && Strings.isNullOrEmpty(that.homePhone) || homePhone.equals(that.homePhone)) &&
+                (Strings.isNullOrEmpty(mobilePhone) && Strings.isNullOrEmpty(that.mobilePhone) || mobilePhone.equals(that.mobilePhone)) &&
+                (Strings.isNullOrEmpty(workPhone) && Strings.isNullOrEmpty(that.workPhone) || workPhone.equals(that.workPhone)) &&
+                (Strings.isNullOrEmpty(email) && Strings.isNullOrEmpty(that.email) || email.equals(that.email)) &&
+                (Strings.isNullOrEmpty(email2) && Strings.isNullOrEmpty(that.email2) || email2.equals(that.email2)) &&
+                (Strings.isNullOrEmpty(email3) && Strings.isNullOrEmpty(that.email3) || email3.equals(that.email3));
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, firstname, middlename, lastname, nickname, company, address, homePhone, mobilePhone, workPhone, email, email2, email3);
+    }
+
     public File getPhoto() {
         if (photo == null) {
             return new File(photoPath);
@@ -236,31 +271,6 @@ public class ContactData {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        ContactData that = (ContactData) o;
-        return id == that.id &&
-                Objects.equals(firstname, that.firstname) &&
-                Objects.equals(middlename, that.middlename) &&
-                Objects.equals(lastname, that.lastname) &&
-                Objects.equals(nickname, that.nickname) &&
-                Objects.equals(company, that.company) &&
-                Objects.equals(address, that.address) &&
-                (Strings.isNullOrEmpty(homePhone) && Strings.isNullOrEmpty(that.homePhone) || homePhone.equals(that.homePhone)) &&
-                (Strings.isNullOrEmpty(mobilePhone) && Strings.isNullOrEmpty(that.mobilePhone) || mobilePhone.equals(that.mobilePhone)) &&
-                (Strings.isNullOrEmpty(workPhone) && Strings.isNullOrEmpty(that.workPhone) || workPhone.equals(that.workPhone)) &&
-                (Strings.isNullOrEmpty(email) && Strings.isNullOrEmpty(that.email) || email.equals(that.email)) &&
-                (Strings.isNullOrEmpty(email2) && Strings.isNullOrEmpty(that.email2) || email2.equals(that.email2)) &&
-                (Strings.isNullOrEmpty(email3) && Strings.isNullOrEmpty(that.email3) || email3.equals(that.email3));
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, firstname, middlename, lastname, nickname, company, address, homePhone, mobilePhone, workPhone, email, email2, email3);
-    }
-
-    @Override
     public String toString() {
         return "ContactData{" +
                 "id=" + id +
@@ -276,6 +286,7 @@ public class ContactData {
                 ", email='" + email + '\'' +
                 ", email2='" + email2 + '\'' +
                 ", email3='" + email3 + '\'' +
+                ", groups='" + groups + '\'' +
                 '}';
     }
 
