@@ -145,19 +145,21 @@ public class ContactHelper<creation> extends HelperBase {
     }
 
     public void addContactToGroup(ContactData addContact, GroupData group) {
+        click(By.linkText("home"));
         getContactById(addContact.getId());
         click(By.name("to_group"));
         click(By.cssSelector("select[name=\"to_group\"] > option[value=\""+group.getId()+"\"]"));
         click(By.name("add"));
+        click(By.linkText("home"));
     }
 
     public void removeContactFromGroup(ContactData removeContact, GroupData group) {
-       // getContactById(contact.getId());
+        click(By.linkText("home"));
         click(By.name("group"));
         click(By.cssSelector("select[name=\"group\"] > option[value=\""+ group.getId() +"\"]"));
         getContactById(removeContact.getId());
         click(By.name("remove"));
-
+        click(By.linkText("home"));
     }
 
 }
